@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[45]:
+# In[34]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[57]:
+# In[35]:
 
 
 from selenium import webdriver
@@ -30,7 +30,7 @@ import urllib
 import dns
 
 
-# In[47]:
+# In[36]:
 
 
 options = Options()
@@ -59,60 +59,62 @@ def patching_get(driver, url):
     return driver
 
 
-# In[48]:
+# In[37]:
 
 
 allCategories = []
 def getAllCategories(driver,base_url = "https://www.flipkart.com/"):
-    driver = patching_get(driver,base_url)
-    menPath = driver.find_element_by_xpath('//*[@id="container"]/div/div[2]/div/ul/li[3]/span').text
-    womenPath = driver.find_element_by_xpath('//*[@id="container"]/div/div[2]/div/ul/li[4]/span').text
-    print(menPath)
-    print(womenPath)
-    
-    links = driver.find_elements_by_class_name('_3GtRpC')
-    print(len(links))
-    for i in range(len(links)):
-        if(i == 0 or i == 1):
-            continue
-        if(i > 3):
-            break
-        majCatName = ""
-        if(i == 2):
-            majCatName = menPath
-        elif(i == 3):
-            majCatName = womenPath
-        print(links[i])
-        el = links[i]
-        lowCategories = el.find_elements_by_tag_name('a')
-        print(len(lowCategories))
-        tot = []
-        allLinks = []
-        for lowCat in lowCategories:
-            singleLink = []
-            name = lowCat.get_attribute('title')
+    try:    
+        driver = patching_get(driver,base_url)
+        menPath = driver.find_element_by_xpath('//*[@id="container"]/div/div[2]/div/ul/li[3]/span').text
+        womenPath = driver.find_element_by_xpath('//*[@id="container"]/div/div[2]/div/ul/li[4]/span').text
+        print(menPath)
+        print(womenPath)
+        links = driver.find_elements_by_class_name('_3GtRpC')
+        print(len(links))
+        for i in range(len(links)):
+            if(i == 0 or i == 1):
+                continue
+            if(i > 3):
+                break
+            majCatName = ""
+            if(i == 2):
+                majCatName = menPath
+            elif(i == 3):
+                majCatName = womenPath
+            print(links[i])
+            el = links[i]
+            lowCategories = el.find_elements_by_tag_name('a')
+            print(len(lowCategories))
+            tot = []
+            allLinks = []
+            for lowCat in lowCategories:
+                singleLink = []
+                name = lowCat.get_attribute('title')
             
-            link = lowCat.get_attribute('href')
-            singleLink.append(name)
-            singleLink.append(link)
-            allLinks.append(singleLink)
-        tot.append(majCatName)
-        tot.append(allLinks)
-        allCategories.append(tot)
-       
+                link = lowCat.get_attribute('href')
+                singleLink.append(name)
+                singleLink.append(link)
+                allLinks.append(singleLink)
+            tot.append(majCatName)
+            tot.append(allLinks)
+            allCategories.append(tot)
+    except Exception as e:
+        print(e)
+        raise(e)
     return allCategories     
         
         
     print(len(links))
 
 
-# In[49]:
+# In[38]:
 
 
 getAllCategories(driver)
 
 
-# In[54]:
+# In[39]:
 
 
 allProducts = []
@@ -129,43 +131,22 @@ def getAllProducts(driver):
                 img_links = driver.find_elements_by_class_name('_1SSAGr')
             except:
                 pass
-#             myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,"_3togXc"))))
-#             images = []
-#             while True:
-            
-#                 driver.execute_script("window.scrollBy(0,1200)", "")
-#                 try:
-#                     WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_class_name("_3togXc")) > myLength)
-#                     images = driver.find_elements_by_class_name("_3togXc")
-#                     myLength = len(images)
-#                 except TimeoutException:
-#                     break
             all_img_links = []
-#             for ele in images:
-                
-#                 imgLink = ele.get_attribute('src')
-#                 time.sleep(0.1)
-#                 imgLink = ele.get_attribute('src')
-#                 all_img_links.append(imgLink)
             print(len(img_links))    
             print(len(all_img_links))
             trendingInfo = []
             for image in img_links:
                 imgLink = image.find_element_by_tag_name('img').get_attribute('src')
                 all_img_links.append(imgLink)
-#                 print(link)
                 temp = False
                 try:
-                    tmp1=image.find_element_by_class_name("_1K7fCP")
-                    
+                    tmp1=image.find_element_by_class_name("_1K7fCP") 
                     temp = True
                 except NoSuchElementException:
-#                     print('amaa')
                     temp = False
                 if temp == True:
                     trendingInfo.append(temp)
-                else:
-                    
+                else:      
                     try:
                         tmp2=image.find_element_by_class_name('_3pAmCA')
                     except NoSuchElementException:
@@ -178,8 +159,6 @@ def getAllProducts(driver):
             moreProductInfo = []
             print(len(productInfo))
             for prod in productInfo:
-#                 brandName = prod.find_element_by_class_name('_2B_pmu').text
-#                 time.sleep(0.1)
                 try:
                     
                     brandName = prod.find_element_by_class_name('_2B_pmu').text
@@ -210,13 +189,13 @@ def getAllProducts(driver):
         
 
 
-# In[55]:
+# In[40]:
 
 
 getAllProducts(driver)
 
 
-# In[59]:
+# In[41]:
 
 
 print(len(allProducts))
@@ -227,7 +206,7 @@ flipkartProducts = db.flipkart
 print(flipkartProducts)
 flipkartProducts.remove()
 # result = myntraProducts.insert_many(allProducts)
-result = flipkartProducts.insert_many([{'i': i} for i in range(5080)]).inserted_ids
+result = flipkartProducts.insert_many([{'i': i} for i in range(len(allProducts))]).inserted_ids
 print(result)
 
 
