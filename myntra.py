@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[1]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[10]:
+# In[2]:
 
 
 from selenium import webdriver
@@ -36,7 +36,7 @@ myntraProducts = db.myntra
 print(myntraProducts)
 
 
-# In[11]:
+# In[3]:
 
 
 options = Options()
@@ -65,7 +65,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[12]:
+# In[4]:
 
 
 allCategories = []
@@ -149,13 +149,13 @@ def getCategories(driver,base_url = "https://www.myntra.com/"):
     
 
 
-# In[13]:
+# In[5]:
 
 
 getCategories(driver)
 
 
-# In[14]:
+# In[6]:
 
 
 allProducts = []
@@ -260,13 +260,13 @@ def getAllProducts(driver):
     
 
 
-# In[15]:
+# In[7]:
 
 
 getAllProducts(driver)
 
 
-# In[16]:
+# In[8]:
 
 
 print(len(allProducts))
@@ -277,7 +277,8 @@ myntraProducts = db.myntra
 print(myntraProducts)
 myntraProducts.remove()
 # result = myntraProducts.insert_many(allProducts)
-result = myntraProducts.insert_many([{'i': i} for i in range(len(allProducts))]).inserted_ids
+result = myntraProducts.insert_many([{'i': i,'Major-Category':allProducts[i]['Major-Category'],'Sub-Category':allProducts[i]['Sub-Category'],'Image':allProducts[i]['Image'],'Trending':allProducts[i]['Trending'],'Brand':allProducts[i]['Brand'],'Product-Info':allProducts[i]['Product-info']} for i in range(len(allProducts))]).inserted_ids
+print(result)
 print(result)
 # for object_id in result.inserted_ids:
 #     print(str(object_id))

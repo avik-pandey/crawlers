@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[34]:
+# In[1]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[35]:
+# In[2]:
 
 
 from selenium import webdriver
@@ -30,7 +30,7 @@ import urllib
 import dns
 
 
-# In[36]:
+# In[3]:
 
 
 options = Options()
@@ -59,7 +59,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[37]:
+# In[4]:
 
 
 allCategories = []
@@ -108,13 +108,13 @@ def getAllCategories(driver,base_url = "https://www.flipkart.com/"):
     print(len(links))
 
 
-# In[38]:
+# In[5]:
 
 
 getAllCategories(driver)
 
 
-# In[39]:
+# In[6]:
 
 
 allProducts = []
@@ -189,13 +189,13 @@ def getAllProducts(driver):
         
 
 
-# In[40]:
+# In[7]:
 
 
 getAllProducts(driver)
 
 
-# In[41]:
+# In[8]:
 
 
 print(len(allProducts))
@@ -206,7 +206,7 @@ flipkartProducts = db.flipkart
 print(flipkartProducts)
 flipkartProducts.remove()
 # result = myntraProducts.insert_many(allProducts)
-result = flipkartProducts.insert_many([{'i': i} for i in range(len(allProducts))]).inserted_ids
+result = flipkartProducts.insert_many([{'i': i,'Major-Category':allProducts[i]['Major-Category'],'Sub-Category':allProducts[i]['Sub-Category'],'Image':allProducts[i]['Image'],'Trending':allProducts[i]['Trending'],'Brand':allProducts[i]['Brand'],'Product-Info':allProducts[i]['Product-info']} for i in range(len(allProducts))]).inserted_ids
 print(result)
 
 
