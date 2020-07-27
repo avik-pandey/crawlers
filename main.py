@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 import os                                                                       
@@ -9,7 +9,7 @@ from multiprocessing import Pool
 import defs
 
 
-# In[2]:
+# In[5]:
 
 
 processes = ('myntra.py', 'vogue_crawler.py','flipkart.py') 
@@ -19,11 +19,12 @@ processes = ('myntra.py', 'vogue_crawler.py','flipkart.py')
     
 
 
-# In[3]:
+# In[ ]:
 
 
-pool = Pool(processes=3)                                                        
-pool.map(defs.run_process, processes) 
+if __name__ == '__main__':    
+    pool = Pool(processes=3)                                                        
+    pool.map(defs.run_process, processes) 
 
 
 # In[ ]:

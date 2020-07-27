@@ -154,7 +154,12 @@ def getAllProducts(driver):
             
                     trendingInfo.append(temp)
             print(len(all_img_links))
-            productInfo = driver.find_elements_by_class_name('_2LFGJH')
+            try:
+                
+                productInfo = driver.find_elements_by_class_name('_2LFGJH')
+            except Exception as e:
+                print(e)
+                raise(e)
             companyName = []
             moreProductInfo = []
             print(len(productInfo))

@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[16]:
+# In[66]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[17]:
+# In[67]:
 
 
 from selenium import webdriver
@@ -36,7 +36,7 @@ import dns
 # print(magazineImg)
 
 
-# In[18]:
+# In[68]:
 
 
 options = Options()
@@ -65,7 +65,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[19]:
+# In[69]:
 
 
 images = []
@@ -75,13 +75,16 @@ def getImages(driver,base_url = "https://www.vogue.in"):
         driver = patching_get(driver,base_url)
         print("yeha")
         time.sleep(1);
-        ele = driver.find_element_by_xpath('//*[@id="SlimNavContent"]/div[2]/div/ul/li[1]/a')
-        link = driver.find_element_by_xpath('//*[@id="SlimNavContent"]/div[2]/div/ul/li[1]/a').text
-        lee = ele.get_attribute('href')
-        print(link,"okk")
+#         ele = driver.find_element_by_xpath('//*[@id="app-root"]/section/div[2]/div/div[2]/div/div/div/div/div[1]/div/div/a[1]')
+#         link = driver.find_element_by_xpath('//*[@id="app-root"]/section/div[2]/div/div[2]/div/div/div/div/div[1]/div/div/a[1]').text
+        ele = driver.find_elements_by_class_name('kAGhaR')
+        print(ele)
+        print(len(ele))
+        lee = ele[0].get_attribute('href')
+#         print(link,"okk")
         print(lee,"dkjak")
         try:
-            ele.click()
+            ele[0].click()
             print('clcike')
             time.sleep(4)
         
@@ -109,6 +112,8 @@ def getImages(driver,base_url = "https://www.vogue.in"):
         cnt = 0
         while condition:
             cnt = cnt + 1
+            if cnt > 38:
+                break
             myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.TAG_NAME,"img"))))
             imgLinks = []
             while True:
@@ -120,15 +125,23 @@ def getImages(driver,base_url = "https://www.vogue.in"):
                 except TimeoutException:
                     break
             print(len(img_links))
-        
+            cnt2 = 0
             for el in img_links:
-                name = el.get_attribute("src")
-                time.sleep(0.1)
-                name = el.get_attribute("src")
+                
+                try:
+                    
+                    name = el.get_attribute("src")
+                    time.sleep(0.1)
+                    name = el.get_attribute("src")
+                except Exception as e:
+                    print(e)
+                    raise(e)
                 fin = {
                 'img_link':name
                 }
                 print(fin)
+                print(cnt2)
+                cnt2=cnt2+1;
                 images.append(fin)
         
             nextBtn = driver.find_elements_by_class_name('bmYSpE')
@@ -152,13 +165,13 @@ def getImages(driver,base_url = "https://www.vogue.in"):
     
 
 
-# In[20]:
+# In[70]:
 
 
 getImages(driver)
 
 
-# In[21]:
+# In[71]:
 
 
 # arr = [{ 'img_link':'faka'}]
