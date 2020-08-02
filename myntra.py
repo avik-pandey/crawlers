@@ -270,7 +270,7 @@ getAllProducts(driver)
 
 
 print(len(allProducts))
-client = MongoClient('mongodb+srv://user:'+urllib.parse.quote('Avik@838')+'@cluster0.pe7lw.mongodb.net/intelFashion?retryWrites=true&w=majority')
+client = MongoClient('mongodb+srv://user:'+urllib.parse.quote('flipkart')+'@cluster0.pe7lw.mongodb.net/intelFashion?retryWrites=true&w=majority')
 print(client)
 db = client['intelFashion']
 myntraProducts = db.myntra
