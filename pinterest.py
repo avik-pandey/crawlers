@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[156]:
+# In[1]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[157]:
+# In[2]:
 
 
 from selenium import webdriver
@@ -30,7 +30,7 @@ import urllib
 import dns
 
 
-# In[158]:
+# In[3]:
 
 
 options = Options()
@@ -59,7 +59,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[159]:
+# In[4]:
 
 
 def login(driver,start_url = "https://in.pinterest.com/",email = "kbhardwaj085@gmail.com",password = "Avik@838"):
@@ -211,7 +211,7 @@ def set_model(driver,model = "kendall jenner outfits",start_url = "https://in.pi
 #             raise(e)
             
         fin = {'model' : model
-            ,'img-url' : final[i]}    
+            ,'imgUrl' : final[i]}    
         print(next)
         imgLinks.append(fin)
      
@@ -222,13 +222,13 @@ def set_model(driver,model = "kendall jenner outfits",start_url = "https://in.pi
     
 
 
-# In[160]:
+# In[5]:
 
 
 set_model(driver,model = "kendall jenner outfits")
 
 
-# In[161]:
+# In[6]:
 
 
 client = MongoClient('mongodb+srv://user:'+urllib.parse.quote('flipkart')+'@cluster0.pe7lw.mongodb.net/intelFashion?retryWrites=true&w=majority')

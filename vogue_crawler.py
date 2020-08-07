@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[66]:
+# In[21]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[67]:
+# In[22]:
 
 
 from selenium import webdriver
@@ -36,7 +36,7 @@ import dns
 # print(magazineImg)
 
 
-# In[68]:
+# In[23]:
 
 
 options = Options()
@@ -65,7 +65,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[69]:
+# In[24]:
 
 
 images = []
@@ -126,6 +126,7 @@ def getImages(driver,base_url = "https://www.vogue.in"):
                     break
             print(len(img_links))
             cnt2 = 0
+            cat = ""
             for el in img_links:
                 
                 try:
@@ -137,7 +138,9 @@ def getImages(driver,base_url = "https://www.vogue.in"):
                     print(e)
                     raise(e)
                 fin = {
-                'img_link':name
+                'img_link':name,
+                'category':cat,    
+                    
                 }
                 print(fin)
                 print(cnt2)
@@ -165,13 +168,13 @@ def getImages(driver,base_url = "https://www.vogue.in"):
     
 
 
-# In[70]:
+# In[25]:
 
 
 getImages(driver)
 
 
-# In[71]:
+# In[ ]:
 
 
 # arr = [{ 'img_link':'faka'}]

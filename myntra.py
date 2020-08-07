@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[8]:
 
 
 import selenium
 from selenium.webdriver import ActionChains
 
 
-# In[2]:
+# In[9]:
 
 
 from selenium import webdriver
@@ -36,7 +36,7 @@ myntraProducts = db.myntra
 print(myntraProducts)
 
 
-# In[3]:
+# In[10]:
 
 
 options = Options()
@@ -65,7 +65,7 @@ def patching_get(driver, url):
     return driver
 
 
-# In[4]:
+# In[11]:
 
 
 allCategories = []
@@ -149,13 +149,13 @@ def getCategories(driver,base_url = "https://www.myntra.com/"):
     
 
 
-# In[5]:
+# In[12]:
 
 
 getCategories(driver)
 
 
-# In[6]:
+# In[13]:
 
 
 allProducts = []
@@ -240,12 +240,12 @@ def getAllProducts(driver):
                     if len(all_img_links) == 0:
                         break
                     fin = {
-                    'Major-Category':majCatName,
-                    'Sub-Category':secCatName,
+                    'majorCategory':majCatName,
+                    'subCategory':secCatName,
                     'Image':all_img_links[i],
                     'Trending':trendingInfo[i],
                     'Brand':companyName[i],
-                    'Product-info':moreProductInfo[i]
+                    'productInfo':moreProductInfo[i]
                    }
                     print(fin)
                     allProducts.append(fin)
@@ -260,13 +260,13 @@ def getAllProducts(driver):
     
 
 
-# In[7]:
+# In[14]:
 
 
 getAllProducts(driver)
 
 
-# In[8]:
+# In[15]:
 
 
 print(len(allProducts))
@@ -277,11 +277,17 @@ myntraProducts = db.myntra
 print(myntraProducts)
 myntraProducts.remove()
 # result = myntraProducts.insert_many(allProducts)
-result = myntraProducts.insert_many([{'i': i,'Major-Category':allProducts[i]['Major-Category'],'Sub-Category':allProducts[i]['Sub-Category'],'Image':allProducts[i]['Image'],'Trending':allProducts[i]['Trending'],'Brand':allProducts[i]['Brand'],'Product-Info':allProducts[i]['Product-info']} for i in range(len(allProducts))]).inserted_ids
+result = myntraProducts.insert_many([{'i': i,'majorCategory':allProducts[i]['majorCategory'],'subCategory':allProducts[i]['subCategory'],'Image':allProducts[i]['Image'],'Trending':allProducts[i]['Trending'],'Brand':allProducts[i]['Brand'],'productInfo':allProducts[i]['productInfo']} for i in range(len(allProducts))]).inserted_ids
 print(result)
 print(result)
 # for object_id in result.inserted_ids:
 #     print(str(object_id))
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
